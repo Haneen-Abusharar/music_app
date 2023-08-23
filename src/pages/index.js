@@ -1,37 +1,45 @@
 import React, { useState } from 'react'
 import { Inter } from 'next/font/google'
 import Head from 'next/head'
+import Player from '@/components/Player/player'
+import Search from '@/components/search'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   const [songs, setsongs] = useState([
     {
-       title: "song 1",
-       artist: "artist 1",
-       img_src: "./images/img1.jpg",
-       src: "./songs/Måneskin - Beggin ( Testo)_2.mp3",
+      title: "Beggin",
+      artist: "Måneskin",
+      img_src: "/images/begg.jpg",
+      src: "./songs/Måneskin - Beggin ( Testo)_2.mp3",
     },
     {
-       title: "song 2",
-       artist: "artist 2",
-       img_src: "./images/img2.jpg",
-       src: "./songs/Young Dumb & Broke Khalid .mp3",
+      title: "Young Dumb",
+      artist: "Khalid",
+      img_src: "/images/young.jpg",
+      src: "./songs/Young Dumb & Broke Khalid .mp3",
     },
   ]);
+  const [currentSongIndex, setCurrentSongIndex] = useState(0);
+  const [nextSongIndex, setNextSongIndex] = useState(currentSongIndex + 1);
   return (
     <>
-    <Head>
-       <title>Music Application</title>
-       <meta name="keywords" content="music, streaming, entertainment"></meta>
-     </Head>
+      <Head>
+        <title>Music Application</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="keywords" content="music, streaming, entertainment"></meta>
+      </Head>
 
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-          <h1>components here</h1>
-
-    </main>
+      <main
+        className={`min-h-screen p-24 flex ${inter.className}`}
+      >
+        <Search />
+        <Player
+          song={songs[currentSongIndex]}
+          nextSong={songs[nextSongIndex]}
+        />
+      </main>
     </>
   )
 }
